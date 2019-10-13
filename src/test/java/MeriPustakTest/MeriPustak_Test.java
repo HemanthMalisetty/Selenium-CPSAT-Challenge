@@ -13,7 +13,7 @@ import static org.testng.Assert.assertNotEquals;
 
 public class MeriPustak_Test extends BaseTest {
 
-    BaseTest baseTest = new MeriPustak_Test();
+    BaseTest baseTest = new BaseTest();
 
     @Test
     public void meriPustak_Test() throws IOException {
