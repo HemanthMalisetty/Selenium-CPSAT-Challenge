@@ -1,16 +1,12 @@
 package BaseTest;
 
-import Utilities.LocalDriverManager;
+import utilities.LocalDriverManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-
-import org.testng.annotations.AfterMethod;
-
-import java.util.concurrent.TimeUnit;
 
 
 public class BaseTest {
@@ -36,7 +32,7 @@ public class BaseTest {
         LocalDriverManager.setWebDriver(driver);
         driver = LocalDriverManager.getDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        /*driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);*/
         driver.get(url);
         System.out.println("Browser name : " + browser);
         System.out.println("Navigating to : " + url);

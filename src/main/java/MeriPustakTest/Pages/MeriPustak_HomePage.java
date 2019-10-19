@@ -1,6 +1,6 @@
 package MeriPustakTest.Pages;
 
-import Utilities.DriverHelper;
+import utilities.DriverHelper;
 
 public class MeriPustak_HomePage {
     String logo = "//*[@id = 'mpstkLogo']/img",

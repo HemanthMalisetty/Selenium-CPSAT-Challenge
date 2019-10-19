@@ -1,4 +1,4 @@
-package Utilities;
+package utilities;
 
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFRow;

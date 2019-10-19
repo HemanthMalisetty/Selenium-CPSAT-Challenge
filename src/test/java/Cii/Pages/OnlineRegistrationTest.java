@@ -1,7 +1,7 @@
 package Cii.Pages;
 
 import BaseTest.BaseTest;
-import Utilities.ExcelUtil;
+import utilities.ExcelUtil;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;

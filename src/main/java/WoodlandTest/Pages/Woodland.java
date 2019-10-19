@@ -1,6 +1,6 @@
 package WoodlandTest.Pages;
 
-import Utilities.DriverHelper;
+import utilities.DriverHelper;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;

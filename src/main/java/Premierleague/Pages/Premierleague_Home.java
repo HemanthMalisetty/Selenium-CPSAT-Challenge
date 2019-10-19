@@ -1,7 +1,7 @@
 package Premierleague.Pages;
 
-import Utilities.DriverHelper;
-import Utilities.LocalDriverManager;
+import utilities.DriverHelper;
+import utilities.LocalDriverManager;
 import org.openqa.selenium.interactions.Actions;
 
 import java.awt.*;

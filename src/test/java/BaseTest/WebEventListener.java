@@ -7,8 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 
-public class WebEventListener extends BaseTestTwo implements WebDriverEventListener {
-
+public class WebEventListener extends BaseTest implements WebDriverEventListener {
+    String href = "";
     @Override
     public void beforeAlertAccept(WebDriver webDriver) {
         Reporter.log("alert is preseent"+ webDriver.switchTo().alert().getText());
@@ -39,16 +39,23 @@ public class WebEventListener extends BaseTestTwo implements WebDriverEventListe
         Reporter.log("Navigated to :"+url);
 
         String noThanks_alertMessage = "//*[@id = 'onesignal-popover-cancel-button']",
-                close_button = "//*[starts-with(@class, 'styles_closeButton')]";
+                close_button = "//*[starts-with(@class, 'styles_closeButton')]",
+                close = "//*[@class = 'closeBtn']",
+                acceptCookies = "//*[@class = 'btn-primary cookies-notice-accept']";
         if (isDisplayed(webDriver, noThanks_alertMessage)){
             waitForElementToBeClickable(webDriver, noThanks_alertMessage);
             webDriver.findElement(By.xpath(noThanks_alertMessage)).click();
             waitForElementToBeDisappear(webDriver, noThanks_alertMessage);
         }
-        if (isDisplayed(webDriver, close_button)){
-            webDriver.findElement(By.xpath(close_button)).click();
-            waitForElementToBeDisappear(webDriver, close_button);
+        if (isDisplayed(webDriver, close)){
+            waitForElementToBeClickable(webDriver, close);
+            webDriver.findElement(By.xpath(close)).click();
         }
+        if (isDisplayed(webDriver, acceptCookies)){
+            waitForElementToBeClickable(webDriver, acceptCookies);
+            webDriver.findElement(By.xpath(acceptCookies)).click();
+        }
+
     }
     public boolean isClickable(WebDriver driver, String xpath){
         try{
@@ -59,6 +66,13 @@ public class WebEventListener extends BaseTestTwo implements WebDriverEventListe
 
         }
     }
+    /*public boolean isDisplayed(WebDriver driver, String xpath){
+        if(driver.findElements(By.xpath(xpath)).size()>0) {
+            return driver.findElement(By.xpath(xpath)).isDisplayed();
+        }else {
+            return false;
+        }
+    }*/
 
     public boolean isDisplayed(WebDriver driver, String xpath){
         try {
@@ -118,17 +132,40 @@ public class WebEventListener extends BaseTestTwo implements WebDriverEventListe
         Reporter.log("Found the element :");
         Reporter.log(by.toString());
     }
-
     @Override
     public void beforeClickOn(WebElement element, WebDriver webDriver) {
         Reporter.log("Clicking on :"+element.getText());
         Reporter.log(element.toString());
+        try {
+            href = element.getAttribute("href");
+        }catch (Exception e){
+
+        }
     }
 
     @Override
     public void afterClickOn(WebElement element, WebDriver webDriver) {
-        Reporter.log("Clicked on :"+element);
+        Reporter.log("Clicked on :" + element);
         Reporter.log(element.toString());
+
+        System.out.println("inside afterClickOn method" + href);
+        try{
+            if (href.contains("http")) {
+                String close = "//*[@class = 'closeBtn']",
+                        acceptCookies = "//*[@class = 'btn-primary cookies-notice-accept']";
+                if (isDisplayed(webDriver, close)) {
+                    waitForElementToBeClickable(webDriver, close);
+                    webDriver.findElement(By.xpath(close)).click();
+                }
+                if (isDisplayed(webDriver, acceptCookies)) {
+                    waitForElementToBeClickable(webDriver, acceptCookies);
+                    webDriver.findElement(By.xpath(acceptCookies)).click();
+                }
+            }
+        }catch (Exception e){
+
+        }
+
     }
 
     @Override
@@ -164,7 +201,16 @@ public class WebEventListener extends BaseTestTwo implements WebDriverEventListe
 
     @Override
     public void afterSwitchToWindow(String s, WebDriver webDriver) {
-
+        String close = "//*[@class = 'closeBtn']",
+                acceptCookies = "//*[@class = 'btn-primary cookies-notice-accept']";
+        if (isDisplayed(webDriver, close)){
+            waitForElementToBeClickable(webDriver,close);
+            webDriver.findElement(By.xpath(close)).click();
+        }
+        if (isDisplayed(webDriver, acceptCookies)){
+            waitForElementToBeClickable(webDriver,acceptCookies);
+            webDriver.findElement(By.xpath(acceptCookies)).click();
+        }
     }
 
     @Override

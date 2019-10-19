@@ -1,7 +1,8 @@
-package Utilities
+package utilities
 
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.interactions.Actions
 import org.openqa.selenium.support.Color
@@ -10,8 +11,8 @@ import org.openqa.selenium.support.ui.Select
 import org.openqa.selenium.support.ui.WebDriverWait
 
 class DriverHelper {
-    var driver = LocalDriverManager.getDriver()
-    val webDriverWait = WebDriverWait(driver, 30)
+    var driver: WebDriver = LocalDriverManager.getDriver()
+    private val webDriverWait = WebDriverWait(driver, 30)
 
     fun findElement(by: By): WebElement {
         return driver.findElement(by)
@@ -56,7 +57,7 @@ class DriverHelper {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)))
     }
     fun waitForElementToBeVisible(xpath: String) {
-        webDriverWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))))
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)))
     }
     fun waitForElementToBeDisappear(xpath: String) {
         webDriverWait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.xpath(xpath))))
@@ -88,13 +89,20 @@ class DriverHelper {
 
     }
     fun isDisplayed(xpath: String): Boolean {
+        return if (driver.findElements(By.xpath(xpath)).size > 0) {
+            driver.findElement(By.xpath(xpath)).isDisplayed
+        } else {
+            false
+        }
+    }
+    /*fun isDisplayed(xpath: String): Boolean {
         try {
             return driver.findElement(By.xpath(xpath)).isDisplayed
         } catch (e: Exception) {
             return false
         }
 
-    }
+    }*/
     fun isClickable(xpath: String): Boolean {
         try {
             return driver.findElement(By.xpath(xpath)).isEnabled
@@ -137,5 +145,8 @@ class DriverHelper {
     fun getTextColorRgb(xpath: String): String {
         val color = driver.findElement(By.xpath(xpath)).getCssValue("color")
         return Color.fromString(color).asRgb()
+    }
+    fun waitUntilPageLoads() {
+        webDriverWait.until { webDriver -> (webDriver as JavascriptExecutor).executeScript("return document.readyState") == "complete" }
     }
 }

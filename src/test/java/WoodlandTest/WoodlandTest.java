@@ -1,7 +1,7 @@
 package WoodlandTest;
 
 import BaseTest.BaseTest;
-import Utilities.ExcelUtil;
+import utilities.ExcelUtil;
 import WoodlandTest.Pages.Woodland;
 import static org.testng.Assert.assertTrue;
 

@@ -2,7 +2,7 @@ package MeriPustakTest;
 
 import BaseTest.BaseTest;
 import MeriPustakTest.Pages.MeriPustak_HomePage;
-import Utilities.ExcelUtil;
+import utilities.ExcelUtil;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;

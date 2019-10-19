@@ -1,6 +1,6 @@
 package BaseTest;
 
-import Utilities.LocalDriverManager;
+import utilities.LocalDriverManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -40,7 +40,7 @@ public class BaseTestTwo {
         LocalDriverManager.setWebDriver(eventDriver);
         driver = LocalDriverManager.getDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.get(url);
         System.out.println("Browser name : " + browser);
         System.out.println("Navigating to : " + url);

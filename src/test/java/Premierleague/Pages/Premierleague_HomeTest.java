@@ -1,31 +1,30 @@
 package Premierleague.Pages;
 
 import BaseTest.BaseTest;
-import Utilities.ExcelUtil;
+import BaseTest.BaseTestTwo;
+import utilities.ExcelUtil;
 import org.junit.After;
 import org.junit.Test;
 
 import java.awt.*;
+import java.util.logging.LogManager;
 
-import static org.junit.Assert.*;
-
-public class Premierleague_HomeTest extends BaseTest {
-    BaseTest baseTest = new BaseTest();
+public class Premierleague_HomeTest extends BaseTestTwo {
+    BaseTestTwo baseTest = new BaseTestTwo();
     @Test
     public void onlineRegistration() throws AWTException, InterruptedException {
         ExcelUtil excelUtil = new ExcelUtil("Cii_TestData");
 
-        baseTest.beforeMethod("chrome", "https://www.premierleague.com/");
+        baseTest.beforeMethod("chrome", "https://www.premierleague.com/home");
+
 
         Premierleague_Home pl = new Premierleague_Home()
-                .clickOnClose()
-                .clickOnAcceptCookies()
                 .clickOnTables()
-                .clickOnClose()
                 .contextClickOnArsenal()
                 .arsenalWindow();
-        System.out.println(pl.getOfficialWebsite());
+        String website = pl.getOfficialWebsite();
         pl.premierleagueTableWindow();
+        System.out.println(website);
         System.out.println(pl.getPageTitle());
     }
 
