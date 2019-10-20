@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 
 public class Premierleague_Home {
     String tables = "//*[@class = 'subNav']//a[text() = 'Tables']",
-            arsenal = "//*[@class = 'allTablesContainer']//*[@class = 'tableMid']//*[@class = 'pos button-tooltip']//following-sibling::*[@class = 'team']//a[contains(@href, 'Arsenal')]",
+            arsenal = "(//*[@class = 'pos button-tooltip']//following-sibling::*[@class = 'team']//a[contains(@href, 'Arsenal')])[1]",
             acceptCookies = "//*[@class = 'btn-primary cookies-notice-accept']",
             close = "//*[@class = 'closeBtn']",
             officialWebsite = "//*[@class = 'website']//*[contains(@href, 'arsenal')]";
