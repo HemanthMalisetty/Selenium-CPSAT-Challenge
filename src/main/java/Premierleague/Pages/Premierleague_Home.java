@@ -26,22 +26,39 @@ public class Premierleague_Home {
         dh.click(close);
         return this;
     }
-    public Premierleague_Home contextClickOnArsenal() throws AWTException, InterruptedException {
+    public Premierleague_Home contextClickOnArsenal(){
         dh.waitForElementToBeClickable(arsenal);
         dh.waitForElementToBeVisible(arsenal);
-        Thread.sleep(5000);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Actions actions = new Actions(LocalDriverManager.getDriver());
         actions.moveToElement(dh.findElement(arsenal)).build().perform();
         actions.contextClick(dh.findElement(arsenal)).build().perform();
-        Thread.sleep(5000);
-        Robot robot = new Robot();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
         robot.keyPress(KeyEvent.VK_DOWN);
         robot.keyRelease(KeyEvent.VK_DOWN);
         robot.keyPress(KeyEvent.VK_DOWN);
         robot.keyRelease(KeyEvent.VK_DOWN);
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
-        Thread.sleep(5000);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return this;
     }
     public Premierleague_Home clickOnAcceptCookies(){

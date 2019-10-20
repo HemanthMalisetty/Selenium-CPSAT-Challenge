@@ -1,26 +1,26 @@
 package MeriPustakTest;
 
-import BaseTest.BaseTest;
+import BaseTest.BaseTestTwo;
 import MeriPustakTest.Pages.MeriPustak_HomePage;
+import org.testng.annotations.BeforeTest;
 import utilities.ExcelUtil;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
-import java.io.IOException;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 
-public class MeriPustak_Test extends BaseTest {
-
-    BaseTest baseTest = new BaseTest();
-
-    @Test
-    public void meriPustak_Test() throws IOException {
-        baseTest.beforeMethod("chrome", "https://www.meripustak.com/");
-
+public class MeriPustak_Test {
+    BaseTestTwo baseTest;
+    @BeforeTest
+    public void navigateToURL(){
         ExcelUtil excelUtil = new ExcelUtil("MeriPustak_TestData");
-
+        baseTest = new BaseTestTwo();
+        baseTest.beforeMethod("chrome", "https://www.meripustak.com/");
+    }
+    @Test
+    public void meriPustak_Test(){
         String cartEmptyMessage = ExcelUtil.getValue("cartEmptyMessage"),
                 bookName = ExcelUtil.getValue("bookName");
 

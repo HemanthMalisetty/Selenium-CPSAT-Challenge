@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
@@ -27,20 +28,32 @@ public class ExcelUtil {
         this.sheetName = sheetName;
     }
 
-    public static void loadExcel() throws IOException {
+    public static void loadExcel() {
         File file = new File(EXCEL_FILE_LOCATION);
-        fis = new FileInputStream(file);
-        workbook = new XSSFWorkbook(fis);
+        try {
+            fis = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            workbook = new XSSFWorkbook(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         sheet = workbook.getSheet(sheetName);
-        fis.close();
+        try {
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static Map<String, Map<String, String >> getMapData() throws IOException {
+    public static Map<String, Map<String, String >> getMapData(){
         if (sheet == null){
             loadExcel();
         }
-        Map<String, Map<String, String>> superMap = new HashMap<String, Map<String, String>>();
-        Map<String, String> myMap = new HashMap<String, String>();
+        Map<String, Map<String, String>> superMap = new HashMap<>();
+        Map<String, String> myMap = new HashMap<>();
 
         for (int i = 1 ; i < sheet.getLastRowNum()+1 ; i++)
         {
@@ -55,11 +68,11 @@ public class ExcelUtil {
         }
         return superMap;
     }
-    public static String getValue(String key) throws IOException {
+    public static String getValue(String key){
         Map<String, String> myVal = getMapData().get("master");
         return myVal.get(key);
     }
-    public static Set<String> getKeySet() throws IOException {
+    public static Set<String> getKeySet(){
         Map<String, String> myVal = getMapData().get("master");
         return myVal.keySet();
     }

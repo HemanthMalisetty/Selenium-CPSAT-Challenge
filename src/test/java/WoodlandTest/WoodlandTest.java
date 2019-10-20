@@ -1,6 +1,7 @@
 package WoodlandTest;
 
-import BaseTest.BaseTest;
+import BaseTest.BaseTestTwo;
+import org.testng.annotations.BeforeTest;
 import utilities.ExcelUtil;
 import WoodlandTest.Pages.Woodland;
 import static org.testng.Assert.assertTrue;
@@ -13,15 +14,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class WoodlandTest extends BaseTest {
-    BaseTest baseTest = new BaseTest();
+public class WoodlandTest {
+    BaseTestTwo baseTest;
+    @BeforeTest
+    public void navigateToURL(){
+        ExcelUtil excelUtil = new ExcelUtil("woodland_TestData");
+        baseTest = new BaseTestTwo();
+        baseTest.beforeMethod("chrome", "https://www.woodlandworldwide.com/");
+    }
 
     @Test
     public void woodlandTest() throws IOException {
-        ExcelUtil excelUtil = new ExcelUtil("woodland_TestData");
-
-        baseTest.beforeMethod("chrome", "https://www.woodlandworldwide.com/");
-
         Woodland wl = new Woodland();
 
         Set<String> searchItems = ExcelUtil.getKeySet();

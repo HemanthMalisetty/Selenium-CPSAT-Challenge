@@ -1,25 +1,26 @@
 package Cii.Pages;
 
-import BaseTest.BaseTest;
+import BaseTest.BaseTestTwo;
+import org.junit.Before;
 import utilities.ExcelUtil;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 
-import java.io.IOException;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class OnlineRegistrationTest extends BaseTest {
-    BaseTest baseTest = new BaseTest();
-
-    @Test
-    public void onlineRegistration() throws IOException {
+public class OnlineRegistrationTest {
+    BaseTestTwo baseTest;
+    @Before
+    public void navigateToURL(){
         ExcelUtil excelUtil = new ExcelUtil("Cii_TestData");
-
+        baseTest = new BaseTestTwo();
         baseTest.beforeMethod("chrome", "https://www.cii.in/OnlineRegistration.aspx");
-
+    }
+    @Test
+    public void onlineRegistration(){
         int noOfAttendees = Integer.parseInt(ExcelUtil.getValue("noOfAttendees"));
         String[] titles = {ExcelUtil.getValue("attendeeTitle1"),
                 ExcelUtil.getValue("attendeeTitle2"),

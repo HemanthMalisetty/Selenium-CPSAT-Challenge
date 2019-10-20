@@ -2,18 +2,23 @@ package Hometown.pages;
 
 import BaseTest.BaseTestTwo;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
-public class HometownTest extends BaseTestTwo  {
-    BaseTestTwo baseTest = new BaseTestTwo();
+public class HometownTest {
+    BaseTestTwo baseTest;
+    @Before
+    public void navigateToURL(){
+        baseTest = new BaseTestTwo();
+        baseTest.beforeMethod("chrome", "https://www.hometown.in/");
+    }
     @Test
     public void hometownTest() {
-
-        baseTest.beforeMethod("chrome", "https://www.hometown.in/");
-
         Hometown ht = new Hometown();
+
         ht.clickOnElectronics()
                 .hoverOnColorFilter()
                 .clickOnBlackInColorFilter()

@@ -3,12 +3,12 @@ package BaseTest;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Reporter;
+import utilities.DriverHelper;
 
-public class WebEventListener extends BaseTest implements WebDriverEventListener {
+
+public class WebEventListener implements WebDriverEventListener {
     String href = "";
+    DriverHelper dh = new DriverHelper();
     @Override
     public void beforeAlertAccept(WebDriver webDriver) {
 
@@ -41,53 +41,27 @@ public class WebEventListener extends BaseTest implements WebDriverEventListener
                     close_button = "//*[starts-with(@class, 'styles_closeButton')]",
                     close = "//*[@class = 'closeBtn']",
                     acceptCookies = "//*[@class = 'btn-primary cookies-notice-accept']";
-            if (isDisplayed(webDriver, noThanks_alertMessage)){
-                waitForElementToBeClickable(webDriver, noThanks_alertMessage);
-                webDriver.findElement(By.xpath(noThanks_alertMessage)).click();
-                waitForElementToBeDisappear(webDriver, noThanks_alertMessage);
+            if (dh.isDisplayed(close_button)){
+                dh.waitForElementToBeClickable(close_button);
+                dh.click(By.xpath(close_button));
+                dh.waitForElementToBeDisappear(close_button);
             }
-            if (isDisplayed(webDriver, close)){
-                waitForElementToBeClickable(webDriver, close);
-                webDriver.findElement(By.xpath(close)).click();
+            if (dh.isDisplayed(noThanks_alertMessage)){
+                dh.waitForElementToBeClickable(noThanks_alertMessage);
+                dh.click(By.xpath(noThanks_alertMessage));
+                dh.waitForElementToBeDisappear(noThanks_alertMessage);
             }
-            if (isDisplayed(webDriver, acceptCookies)){
-                waitForElementToBeClickable(webDriver, acceptCookies);
-                webDriver.findElement(By.xpath(acceptCookies)).click();
+            if (dh.isDisplayed(close)){
+                dh.waitForElementToBeClickable(close);
+                dh.click(By.xpath(close));
+            }
+            if (dh.isDisplayed(acceptCookies)){
+                dh.waitForElementToBeClickable(acceptCookies);
+                dh.click(By.xpath(acceptCookies));
             }
         }catch (Exception e){
 
         }
-    }
-    public boolean isClickable(WebDriver driver, String xpath){
-        try{
-            return driver.findElement(By.xpath(xpath)).isEnabled();
-        }catch (Exception e){
-         return false;
-        }
-    }
-    /*public boolean isDisplayed(WebDriver driver, String xpath){
-        if(driver.findElements(By.xpath(xpath)).size()>0) {
-            return driver.findElement(By.xpath(xpath)).isDisplayed();
-        }else {
-            return false;
-        }
-    }*/
-
-    public boolean isDisplayed(WebDriver driver, String xpath){
-        try {
-            return driver.findElement(By.xpath(xpath)).isDisplayed();
-        }catch (Exception e){
-            return false;
-        }
-    }
-
-    public void waitForElementToBeClickable(WebDriver driver, String xpath){
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-    }
-    public void waitForElementToBeDisappear(WebDriver driver, String xpath){
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.xpath(xpath))));
     }
 
     @Override
@@ -136,6 +110,14 @@ public class WebEventListener extends BaseTest implements WebDriverEventListener
         }catch (Exception e){
 
         }
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        js.executeScript("arguments[0].setAttribute('style','border: solid 2px white');", element);
     }
 
     @Override
@@ -144,13 +126,13 @@ public class WebEventListener extends BaseTest implements WebDriverEventListener
             if (href.contains("http")) {
                 String close = "//*[@class = 'closeBtn']",
                         acceptCookies = "//*[@class = 'btn-primary cookies-notice-accept']";
-                if (isDisplayed(webDriver, close)) {
-                    waitForElementToBeClickable(webDriver, close);
-                    webDriver.findElement(By.xpath(close)).click();
+                if (dh.isDisplayed(close)) {
+                    dh.waitForElementToBeClickable(close);
+                    dh.click(By.xpath(close));
                 }
-                if (isDisplayed(webDriver, acceptCookies)) {
-                    waitForElementToBeClickable(webDriver, acceptCookies);
-                    webDriver.findElement(By.xpath(acceptCookies)).click();
+                if (dh.isDisplayed(acceptCookies)) {
+                    dh.waitForElementToBeClickable(acceptCookies);
+                    dh.click(By.xpath(acceptCookies));
                 }
             }
         }catch (Exception e){
@@ -189,13 +171,13 @@ public class WebEventListener extends BaseTest implements WebDriverEventListener
         try {
             String close = "//*[@class = 'closeBtn']",
                     acceptCookies = "//*[@class = 'btn-primary cookies-notice-accept']";
-            if (isDisplayed(webDriver, close)){
-                waitForElementToBeClickable(webDriver,close);
-                webDriver.findElement(By.xpath(close)).click();
+            if (dh.isDisplayed(close)){
+                dh.waitForElementToBeClickable(close);
+                dh.click(By.xpath(close));
             }
-            if (isDisplayed(webDriver, acceptCookies)){
-                waitForElementToBeClickable(webDriver,acceptCookies);
-                webDriver.findElement(By.xpath(acceptCookies)).click();
+            if (dh.isDisplayed(acceptCookies)){
+                dh.waitForElementToBeClickable(acceptCookies);
+                dh.click(By.xpath(acceptCookies));
             }
         }catch (Exception e){
 

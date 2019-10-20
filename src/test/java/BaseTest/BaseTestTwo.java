@@ -9,15 +9,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
-import java.util.concurrent.TimeUnit;
-
 
 public class BaseTestTwo {
-
+    WebDriver driver = null;
+    EventFiringWebDriver eventDriver;
+    WebEventListener eventListener;
     public void beforeMethod(String browser, String url){
-        WebDriver driver = null;
-        EventFiringWebDriver eventDriver;
-        WebEventListener eventListener;
         switch (browser.toLowerCase()) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
@@ -35,6 +32,7 @@ public class BaseTestTwo {
                 break;
         }
         eventDriver = new EventFiringWebDriver(driver);
+        LocalDriverManager.setWebDriver(driver);
         eventListener = new WebEventListener();
         eventDriver.register(eventListener);
         LocalDriverManager.setWebDriver(eventDriver);
